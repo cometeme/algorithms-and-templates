@@ -8,12 +8,11 @@ using namespace std;
 
 #define ll long long
 
-#define loop(start, end, step) for(int i = (start); i < (end); i += (step))
-#define aloop(content) for(auto cur : content)
 #define update_max(cur, max) if((cur) > max) max = (cur);
 #define update_min(cur, min) if((cur) < min) min = (cur);
 #define max(x, y)  (((x) > (y)) ? (x) : (y))
 #define min(x, y)  (((x) < (y)) ? (x) : (y))
+#define abs(x) (((x) > 0) ? (x) : (-x))
 
 int main()
 {
