@@ -8,11 +8,11 @@ using namespace std;
 
 #define ll long long
 
-#define update_max(cur, max)  if((cur) > max) max = (cur);
-#define update_min(cur, min)  if((cur) < min) min = (cur);
-#define max(x, y)  (((x) > (y)) ? (x) : (y))
-#define min(x, y)  (((x) < (y)) ? (x) : (y))
-#define abs(x)  (((x) > 0) ? (x) : -(x))
+#define maximize(_max, _cur)  if((_cur) > _max) _max = (_cur);
+#define minimize(_min, _cur)  if((_cur) < _min) _min = (_cur);
+#define max(_x, _y)  (((_x) > (_y)) ? (_x) : (_y))
+#define min(_x, _y)  (((_x) < (_y)) ? (_x) : (_y))
+#define abs(_x)  (((_x) > 0) ? (_x) : -(_x))
 
 int main()
 {
