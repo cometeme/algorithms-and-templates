@@ -1,18 +1,17 @@
 #include <iostream>
 #include <algorithm>
+#include <cstdlib>
+#include <cmath>
 
 using namespace std;
 
-#define INF 0x3f3f3f3f
-#define EXP 1e-8
+#define INF 0x3f3f3f3f;
 
-#define ll long long
+typedef long long ll, lli;
 
-#define maximize(_max, _cur)  if((_cur) > _max) _max = (_cur);
-#define minimize(_min, _cur)  if((_cur) < _min) _min = (_cur);
-#define max(_x, _y)  (((_x) > (_y)) ? (_x) : (_y))
-#define min(_x, _y)  (((_x) < (_y)) ? (_x) : (_y))
-#define abs(_x)  (((_x) > 0) ? (_x) : -(_x))
+#define mst(_tar, _v) memset(_tar, _v, sizeof(_v))
+#define maximize(_tar, _cur)  _tar = max(_tar, _cur)
+#define minimize(_tar, _cur)  _tar = min(_tar, _cur)
 
 int main()
 {
