@@ -1,21 +1,26 @@
 #include <iostream>
 #include <algorithm>
-#include <cstdlib>
 #include <cmath>
 
 using namespace std;
 
-#define INF 0x3f3f3f3f;
+#define INF 0x3f3f3f3f
+#define EXP 1e-8
 
-typedef long long ll, lli;
+#define ll long long
 
-#define mst(_tar, _v) memset(_tar, _v, sizeof(_v))
-#define maximize(_tar, _cur)  _tar = max(_tar, _cur)
-#define minimize(_tar, _cur)  _tar = min(_tar, _cur)
+#define memclr(_var)  memset(_var, 0, sizeof(_var))
+#define maximize(_var, _cur)  _var = max(_var, _cur)
+#define minimize(_var, _cur)  _var = min(_var, _cur)
+#define reps(_var, _begin, _end,_step)  for(int _var = (_begin); _var <= (_end); _var += (_step))
+#define reps_(_var, _end, _begin,_step)  for(int _var = (_end); _var >= (_begin); _var -= (_step))
+#define rep(_var, _begin, _end)  reps(_var, _begin, _end, 1)
+#define rep_(_var, _end, _begin)  reps_(_var, _end, _begin, 1)
 
 int main()
 {
     ios::sync_with_stdio(false);
+
 
 
     return 0;
