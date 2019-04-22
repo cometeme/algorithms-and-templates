@@ -1,0 +1,54 @@
+# Your snippets
+#
+# Atom snippets allow you to enter a simple prefix in the editor and hit tab to
+# expand the prefix into a larger code block with templated values.
+#
+# You can create a new snippet in this file by typing "snip" and then hitting
+# tab.
+#
+# An example CoffeeScript snippet to expand log to console.log:
+#
+# '.source.coffee':
+#   'Console log':
+#     'prefix': 'log'
+#     'body': 'console.log $1'
+#
+# Each scope (e.g. '.source.coffee' above) can only be declared once.
+#
+# This file uses CoffeeScript Object Notation (CSON).
+# If you are unfamiliar with CSON, you can read more about it in the
+# Atom Flight Manual:
+# http://flight-manual.atom.io/using-atom/sections/basic-customization/#_cson
+
+'.source.cpp':
+  'ACM Template':
+    'prefix': 'my_template'
+    'body': '''
+    #include <iostream>
+    #include <algorithm>
+    #include <cmath>
+
+    using namespace std;
+
+    #define INF 0x3f3f3f3f
+    #define EXP 1e-8
+
+    #define ll long long
+
+    #define memclr(_var)  memset(_var, 0, sizeof(_var))
+    #define maximize(_var,_val)  _var = max(_var, _val)
+    #define minimize(_var,_val)  _var = min(_var, _val)
+    #define reps(_var,_begin,_end,_step)  for (int _var = (_begin); _var <= (_end); _var += (_step))
+    #define reps_(_var,_end,_begin,_step)  for (int _var = (_end); _var >= (_begin); _var -= (_step))
+    #define rep(_var,_begin,_end)  reps(_var,_begin,_end,1)
+    #define rep_(_var,_end,_begin)  reps_(_var,_end,_begin,1)
+
+    int main()
+    {
+        ios::sync_with_stdio(false);
+
+        $1
+
+        return 0;
+    }
+    '''
