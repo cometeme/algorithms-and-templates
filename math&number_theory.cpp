@@ -25,7 +25,7 @@ ll fast_pow(ll base, ll exp, ll mod)
         y = y * y % mod;
         exp = exp >> 1LL;
     }
-    return t;
+    return t % mod;
 }
 
 
