@@ -1,7 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <cmath>
-#include <set>
+#include <vector>
 
 using namespace std;
 
@@ -12,7 +12,24 @@ using namespace std;
 
 
 
-/* fast pow */
+/* Fast pow */
+// Without mod
+ll fast_pow(ll base, ll exp)
+{
+    ll t, y;
+    t = 1LL;
+    y = base;
+    while(exp != 0LL)
+    {
+        if((exp & 1LL) == 1LL)
+            t = t * y;
+        y = y * y;
+        exp = exp >> 1LL;
+    }
+    return t;
+}
+
+// With mod
 ll fast_pow(ll base, ll exp, ll mod)
 {
     ll t, y;
@@ -69,6 +86,13 @@ ll gcd2(ll a, ll b)
 }
 
 
+/**/
+ll lcm(ll a, ll b)
+{
+    return a / gcd(a, b) * b;
+}
+
+
 
 /* Judge whether a num is a prime number */
 bool is_prime(ll x)
@@ -90,28 +114,42 @@ bool is_prime(ll x)
 
 
 
+/* Fermat */
+// Note that p must be a prime number
+ll fermat(ll a, ll p)
+{
+    return fast_pow(a, p - 2, p);
+}
+
+
+
 /* Prime factor decomposition */
 // Normal version
-set<ll> prime_diecom(ll n)
+vector<ll> factorize(ll n)
 {
-    set<ll> factors;
-    for(ll i = 2LL; i <= n; ++i)
+    vector<ll> factors;
+    for(ll i = 2LL; i * i <= n; i++)
     {
         while(n != i)
         {
             if(n % i == 0LL)
             {
-                factors.insert(i);
+                factors.push_back(i);
                 n = n / i;
             }
             else
                 break;
         }
-        if(is_prime(n))
-        {
-            factors.insert(n);
-            break;
-        }
     }
+
+    if(is_prime(n))
+        factors.push_back(n);
+
     return factors;
 }
+
+
+
+/* Negative number mod*/
+// -2 % 5 -> 3
+#define mod(a, b)  (((a) % (b) + (b)) % (b))
