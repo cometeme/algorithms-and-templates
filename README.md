@@ -1,2 +1,3 @@
 # algorithm-and-template
-A algorithm & template repository for contests.
+
+A algorithm & template repository for ACM contests.
