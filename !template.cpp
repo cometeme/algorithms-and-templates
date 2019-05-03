@@ -18,7 +18,7 @@ using namespace std;
 #define rep(_var, _begin, _end)  reps(_var, _begin, _end, 1)
 #define rep_(_var, _end, _begin)  reps_(_var, _end, _begin, 1)
 
-int main(int argc,char *argv[])
+int main(int argc, char *argv[])
 {
     ios::sync_with_stdio(false);
 
