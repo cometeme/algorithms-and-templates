@@ -153,3 +153,9 @@ vector<ll> factorize(ll n)
 /* Negative number mod*/
 // -2 % 5 -> 3
 #define mod(a, b)  (((a) % (b) + (b)) % (b))
+
+
+/* Low Bit*/
+// Return the lowers 1 in x's binary
+// Index starts from 1
+#define lowbit(x)  ((x) & (-x))
