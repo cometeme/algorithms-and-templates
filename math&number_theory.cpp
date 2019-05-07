@@ -86,7 +86,7 @@ ll gcd2(ll a, ll b)
 }
 
 
-/**/
+/* Least common multiple */
 ll lcm(ll a, ll b)
 {
     return a / gcd(a, b) * b;
@@ -156,6 +156,6 @@ vector<ll> factorize(ll n)
 
 
 /* Low Bit*/
-// Return the lowers 1 in x's binary
+// Return the position of lowerest 1 in x's binary
 // Index starts from 1
 #define lowbit(x)  ((x) & (-x))
