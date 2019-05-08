@@ -86,6 +86,7 @@ ll gcd2(ll a, ll b)
 }
 
 
+
 /* Least common multiple */
 ll lcm(ll a, ll b)
 {
@@ -155,7 +156,33 @@ vector<ll> factorize(ll n)
 #define mod(a, b)  (((a) % (b) + (b)) % (b))
 
 
+
 /* Low Bit*/
 // Return the position of lowerest 1 in x's binary
 // Index starts from 1
 #define lowbit(x)  ((x) & (-x))
+
+
+
+/* Get prime numbers */
+// Euler Sieve Method
+// O(n)
+const int MAXN = 1000010;
+int prime[MAXN], primesize;
+bool isprime[MAXN];
+void get_prime()
+{
+    memset(isprime, true, sizeof(isprime));
+    isprime[1] = false;
+    for(int i = 2; i <= MAXN; i++)
+    {
+        if(isprime[i])
+            prime[++primesize]=i;
+        for(int j = 1; j <= primesize && i * prime[j] <= MAXN; j++)
+        {
+            isprime[i * prime[j]] = false;
+            if(i % prime[j] == 0)
+                break;
+        }
+    }
+}
