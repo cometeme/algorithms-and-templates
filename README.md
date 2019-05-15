@@ -4,26 +4,18 @@ A algorithm & template repository for ACM contests.
 
 ### Files
 
-Tools
+-   snippets
 
--   !make_contest_file.py
-    Use !template.cpp to generate cpp files named `contest_A.cpp` .
+    -   atom.cson
+        A snippets configue file for Atom, put this file in `~/.atom` in macOS or `C:\Users\{User Name}\.atom\` in Windows.
 
--   !make_test_file.py
-    Use !template.cpp to generate cpp files named `test_A.cpp` .
+    -   vscode.json
+        A snippets configue file for Visual Studio Code. Use `Crtl+Shift+P` (`Cmd+Shift+P` on macOS) to open Command Palette. Type `snippets`, and choose `C++`. Then paste the code in.
 
--   remove_all_build_file.py
-    Remove all build files like `a.exe` .
+-   template (chinese/english)
 
-Templates
+    -   math&number_theory.cpp
+        Some useful functions / defines for math or number theory problems.
 
--   !template.cpp
-    A simple version template for contests.
-
--   snippets.cson
-    A snippets configue file for Atom, put this file in `~/.atom` in macOS or `C:\Users\{User Name}\.atom\` in Windows. Then when typing `my_template` and press enter, the editor will automatically fill the template.
-
-Algorithm codes
-
--   math&number_theory.cpp
-    Some useful functions / defines for math or number theory problems.
+-   template.cpp
+    A template for contests.
