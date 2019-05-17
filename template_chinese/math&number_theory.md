@@ -93,19 +93,22 @@ ll gcd(ll a, ll b)
     if (b == 0LL)
         return a;
     if (a % 2LL == 0LL && b % 2LL == 0LL)
-        return 2LL * gcd2(a >> 1LL, b >> 1LL);
+        return 2LL * gcd(a >> 1LL, b >> 1LL);
     else if (a % 2LL == 0LL)
-        return gcd2(a >> 1LL, b);
+        return gcd(a >> 1LL, b);
     else if (b % 2LL == 0LL)
-        return gcd2(a, b >> 1LL);
+        return gcd(a, b >> 1LL);
     else
-        return gcd2(abs(a - b), min(a, b));
+        return gcd(abs(a - b), min(a, b));
 }
 ```
 
 
 
 #### LCM (最小公倍数)
+
+-   需要使用最大公约数 `gcd` 函数。
+-   注意可能会溢出
 
 ```cpp
 ll lcm(ll a, ll b)
@@ -117,6 +120,8 @@ ll lcm(ll a, ll b)
 
 
 #### 判断素数
+
+-   原理：除了 `2` 与 `3` 之外，质数一定出现在 `6` 的两侧。
 
 ```cpp
 bool is_prime(ll x)
@@ -143,7 +148,8 @@ bool is_prime(ll x)
 
 ##### 费马小定理
 
-* 注意： `p` 一定要是质数
+-   需要使用快速幂 `fastpow` 函数。
+-   注意： `p` 一定要是质数
 
 ```cpp
 ll fermat(ll a, ll p)
@@ -232,7 +238,7 @@ vector<ll> factorize(ll n)
 
 
 
-#### 最低 1 位
+#### 最低 `1` 位置
 
 * 返回 `x` 的二进制中最后一个 `1` 的位置。
 
@@ -248,7 +254,7 @@ vector<ll> factorize(ll n)
 
 ##### 线性筛
 
-* 时间复杂度：O(n)
+-   时间复杂度：O(n)
 
 ```cpp
 const int MAXN = 1000010;
