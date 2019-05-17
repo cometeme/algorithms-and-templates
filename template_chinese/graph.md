@@ -31,7 +31,7 @@ struct node
 };
 
 const int MAXN = 10010;
-int MAXN;
+int n;
 
 int dis[MAXN];
 bool vis[MAXN];
@@ -44,11 +44,11 @@ void dijkstra(int s)
     dis[s] = 0;
     int cnt = 0;
 
-    while (cnt < MAXN)
+    while (cnt < n)
     {
         int m = INF;
         int x;
-        for (int i = 1; i <= MAXN; i++)
+        for (int i = 1; i <= n; i++)
             if (!vis[i] && dis[i] < m)
             {
                 m = dis[i];
@@ -128,8 +128,6 @@ void dijkstra(int s)
 -   时间不稳定，没有负权值建议使用 Dijkstra 算法
 
 ```cpp
-const int MAXN = 10010;
-
 struct node
 {
     int to, dis;
@@ -140,7 +138,9 @@ struct node
     }
 };
 
+const int MAXN = 10010;
 int n;
+
 vector<node> G[MAXN];
 bool in[MAXN];
 int cnt[MAXN], dis[MAXN], path[MAXN];
