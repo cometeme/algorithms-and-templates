@@ -1,4 +1,5 @@
 #include <iostream> // C++ I/O
+#include <string>   //C++ string
 #include <fstream>  // File I/O
 #include <sstream>  // String stream I/O
 #include <iomanip>  // C++ I/O manipulator
