@@ -77,15 +77,15 @@ ull base[MAXN];
 void init_hash()
 {
     base[0] = 1;
-    rep(i, 1, MAXN - 1)
+    for (int i = 1; i < MAXN; i++)
         base[i] = base[i - 1] * p;
 }
 
 void string_hash(const char s[], ull h[])
 {
     h[0] = 0;
-    int MAXN = strlen(s);
-    rep(i, 1, MAXN)
+    int n = strlen(s);
+    for (int i = 1; i <= n; i++)
         h[i] = h[i - 1] * p + (s[i - 1] - 'a');
 }
 
