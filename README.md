@@ -14,11 +14,10 @@ A algorithm & template repository for ACM contests.
 
 -   template (chinese/english)
 
+    -   data_structure.md
     -   graph.md
-        Functions for graph / 
-
     -   math&number_theory.md
-        Some useful functions / defines for math or number theory problems.
+    -   string.md
 
 -   template.cpp
     A template for contests.
