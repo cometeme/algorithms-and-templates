@@ -264,14 +264,14 @@ void get_prime()
 {
     memset(isprime, true, sizeof(isprime));
     isprime[1] = false;
-    for(int i = 2; i <= MAXN; i++)
+    for (int i = 2; i <= MAXN; i++)
     {
-        if(isprime[i])
+        if (isprime[i])
             prime[++primesize]=i;
-        for(int j = 1; j <= primesize && i * prime[j] <= MAXN; j++)
+        for (int j = 1; j <= primesize && i * prime[j] <= MAXN; j++)
         {
             isprime[i * prime[j]] = false;
-            if(i % prime[j] == 0)
+            if (i % prime[j] == 0)
                 break;
         }
     }
