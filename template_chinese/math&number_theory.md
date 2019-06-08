@@ -258,7 +258,7 @@ vector<ll> factorize(ll n)
 
 ```cpp
 const int MAXN = 1000010;
-int prime[MAXN], primesize;
+int prime[MAXN], primesize = 0;
 bool isprime[MAXN];
 void get_prime()
 {
@@ -273,6 +273,39 @@ void get_prime()
             isprime[i * prime[j]] = false;
             if (i % prime[j] == 0)
                 break;
+        }
+    }
+}
+```
+
+##### 筛法求莫比乌斯函数
+
+```cpp
+const int N = 1000010;
+bool is_prime[N];
+int prime[N / 2], mu[N], tot = 0, primesize = 0;
+
+void get_mu()
+{
+    mu[1] = 1;
+    memset(is_prime, true, sizeof(is_prime));
+
+    for (int i = 2; i < N; i++)
+    {
+        if (is_prime[i])
+        {
+            prime[++primesize] = i;
+            mu[i] = -1;
+        }
+        for (int j = 1; prime[j] * i < N; j++)
+        {
+            is_prime[prime[j] * i] = false;
+            if (i % prime[j] == 0)
+            {
+                mu[prime[j] * i] = 0;
+                break;
+            }
+            mu[prime[j] * i] = -mu[i];
         }
     }
 }
