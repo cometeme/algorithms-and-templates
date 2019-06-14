@@ -310,3 +310,63 @@ void get_mu()
     }
 }
 ```
+
+
+
+#### 矩阵乘法与快速幂
+
+-   N 为矩阵的大小，为了简化先定义为方阵
+
+-   E 为单位矩阵， `init_E()` 可以用来生成单位矩阵
+
+```cpp
+const int N = 3;
+
+struct matrix
+{
+    ll m[N][N];
+};
+
+matrix E;
+
+matrix init_E()
+{
+    for (int i = 0; i < N; i++)
+        for (int j = 0; j < N; j++)
+        {
+            if (i == j)
+                E.m[i][j] = 1;
+            else
+                E.m[i][j] = 0;
+        }
+}
+
+matrix matmul(matrix x, matrix y)
+{
+    matrix c;
+
+    for (int i = 0; i < N; i++)
+        for (int j = 0; j < N; j++)
+            c.m[i][j] = 0;
+
+    for (int i = 0; i < N; i++)
+        for (int j = 0; j < N; j++)
+            for (int k = 0; k < N; k++)
+                c.m[i][j] = (c.m[i][j] + x.m[i][k] * y.m[k][j]);
+
+    return c;
+}
+
+matrix matpow(matrix x, ll y)
+{
+    matrix ans = E;
+    while (y)
+    {
+        if (y & 1LL)
+            ans = matmul(ans, x);
+        x = matmul(x, x);
+        y >>= 1;
+    }
+    return ans;
+}
+```
