@@ -1,6 +1,6 @@
-# Algorithm and Template
+# Algorithms and Templates
 
-A algorithm & template repository for contests.
+A algorithms & templates repository for contests. Online doc: [www.cometeme.tech/algorithms-and-templates/](https://www.cometeme.tech/algorithms-and-templates/)
 
 ### Files
 
@@ -12,7 +12,7 @@ A algorithm & template repository for contests.
     -   vscode.json
         A snippets configue file for Visual Studio Code. Use `Crtl+Shift+P` (`Cmd+Shift+P` on macOS) to open Command Palette. Type `snippets`, and choose `C++`. Then paste the code in.
 
--   template
+-   doc
 
     -   data_structure
     -   graph
