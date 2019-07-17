@@ -18,7 +18,7 @@ typedef long long ll
 
 ##### 不带模
 ```cpp
-ll fast_pow(ll base, ll exp)
+ll fastpow(ll base, ll exp)
 {
     ll t, y;
     t = 1LL;
@@ -37,7 +37,7 @@ ll fast_pow(ll base, ll exp)
 ##### 取模
 
 ```cpp
-ll fast_pow(ll base, ll exp, ll mod)
+ll fastpow(ll base, ll exp, ll mod)
 {
     ll t, y;
     t = 1LL;
@@ -329,7 +329,7 @@ struct matrix
 
 matrix E;
 
-matrix init_E()
+void init_E()
 {
     for (int i = 0; i < N; i++)
         for (int j = 0; j < N; j++)
