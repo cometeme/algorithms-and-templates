@@ -1,4 +1,4 @@
-### 数学/数论模版
+# 数学/数论模版
 
 需要注意：部分函数可能需要用到 `cmath` 等头文件内的函数。
 
@@ -14,9 +14,9 @@ typedef long long ll
 
 
 
-#### 快速幂
+## 快速幂
 
-##### 不带模
+### 不带模
 ```cpp
 ll fastpow(ll base, ll exp)
 {
@@ -34,7 +34,7 @@ ll fastpow(ll base, ll exp)
 }
 ```
 
-##### 取模
+### 取模
 
 ```cpp
 ll fastpow(ll base, ll exp, ll mod)
@@ -55,9 +55,9 @@ ll fastpow(ll base, ll exp, ll mod)
 
 
 
-#### GCD (最大公约数)
+## GCD (最大公约数)
 
-##### 欧几里得算法 (递归版)
+### 欧几里得算法 (递归版)
 
 ```cpp
 ll gcd(ll a, ll b)
@@ -68,7 +68,7 @@ ll gcd(ll a, ll b)
 }
 ```
 
-##### 欧几里得算法 (迭代版)
+### 欧几里得算法 (迭代版)
 
 ```cpp
 ll gcd(ll a, ll b)
@@ -83,7 +83,7 @@ ll gcd(ll a, ll b)
 }
 ```
 
-##### Stein 算法
+### Stein 算法
 
 ```cpp
 ll gcd(ll a, ll b)
@@ -105,7 +105,7 @@ ll gcd(ll a, ll b)
 
 
 
-#### LCM (最小公倍数)
+## LCM (最小公倍数)
 
 -   需要使用最大公约数 `gcd` 函数。
 -   注意可能会溢出
@@ -119,7 +119,7 @@ ll lcm(ll a, ll b)
 
 
 
-#### 判断素数
+## 判断素数
 
 -   原理：除了 `2` 与 `3` 之外，质数一定出现在 `6` 的两侧。
 
@@ -144,9 +144,9 @@ bool is_prime(ll x)
 
 
 
-#### 求逆元
+## 求逆元
 
-##### 费马小定理
+### 费马小定理
 
 -   需要使用快速幂 `fastpow` 函数。
 -   注意： `p` 一定要是质数
@@ -158,7 +158,7 @@ ll fermat(ll a, ll p)
 }
 ```
 
-##### exgcd (拓展欧几里得法)
+### exgcd (拓展欧几里得法)
 
 * 注意： `p` 和 `a` 一定要互质
 
@@ -195,9 +195,9 @@ ll mod_reverse(ll a, ll n)
 
 
 
-#### 质因子分解
+## 质因子分解
 
-##### 普通版本
+### 普通版本
 
 ```cpp
 vector<ll> factorize(ll n)
@@ -226,7 +226,7 @@ vector<ll> factorize(ll n)
 
 
 
-#### 负数取模
+## 负数取模
 
 * 将负数取模转化为正数结果
 
@@ -238,7 +238,7 @@ vector<ll> factorize(ll n)
 
 
 
-#### 最低 `1` 位置
+## 最低 `1` 位置
 
 * 返回 `x` 的二进制中最后一个 `1` 的位置。
 
@@ -250,9 +250,9 @@ vector<ll> factorize(ll n)
 
 
 
-#### 质数表
+## 质数表
 
-##### 线性筛
+### 线性筛
 
 -   时间复杂度：O(n)
 
@@ -278,7 +278,7 @@ void get_prime()
 }
 ```
 
-##### 筛法求莫比乌斯函数
+### 筛法求莫比乌斯函数
 
 ```cpp
 const int N = 1000010;
@@ -313,7 +313,7 @@ void get_mu()
 
 
 
-#### 矩阵乘法与快速幂
+## 矩阵乘法与快速幂
 
 -   N 为矩阵的大小，为了简化先定义为方阵
 
