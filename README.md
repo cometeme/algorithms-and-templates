@@ -1,6 +1,6 @@
 # Algorithms and Templates
 
-A algorithms & templates repository for contests. Online doc: [www.cometeme.tech/algorithms-and-templates/](https://www.cometeme.tech/algorithms-and-templates/)
+A algorithms & templates repository for contests. [Online doc](https://www.cometeme.tech/algorithms-and-templates/)
 
 ### Files
 
