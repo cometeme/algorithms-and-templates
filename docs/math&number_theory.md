@@ -133,8 +133,7 @@ bool is_prime(ll x)
     if (x % 6LL != 1LL && x % 6LL != 5LL)
         return false;
 
-    ll s = sqrt(x);
-    for (ll i = 5LL; i <= s; i += 6LL)
+    for (ll i = 5LL; i * i <= x; i += 6LL)
         if (x % i == 0LL || x % (i + 2LL) == 0LL)
             return false;
 
@@ -154,7 +153,7 @@ bool is_prime(ll x)
 ```cpp
 ll fermat(ll a, ll p)
 {
-    return fast_pow(a, p - 2, p);
+    return fastpow(a, p - 2, p);
 }
 ```
 
