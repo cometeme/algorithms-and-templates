@@ -202,25 +202,20 @@ ll mod_reverse(ll a, ll n)
 ```cpp
 vector<ll> factorize(ll n)
 {
-    vector<ll> factors;
+    vector<ll> fac;
+
     for (ll i = 2LL; i * i <= n; i++)
-    {
-        while (n != i)
+        if (n % i == 0)
         {
-            if (n % i == 0LL)
-            {
-                factors.push_back(i);
-                n = n / i;
-            }
-            else
-                break;
+            fac.push_back(i);
+            while (n % i == 0)
+                n /= i;
         }
-    }
 
-    if (is_prime(n))
-        factors.push_back(n);
+    if (n > 1)
+        fac.push_back(n);
 
-    return factors;
+    return fac;
 }
 ```
 
