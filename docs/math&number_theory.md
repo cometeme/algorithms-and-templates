@@ -12,6 +12,26 @@
 typedef long long ll
 ```
 
+## 快速幂
+
+```cpp
+lli fastmul(lli a, lli b, lli m)
+{
+    lli res = 0, tmp = a % m;
+    while (b > 0) {
+        if (b & 1 == 1) {
+            res += tmp;
+            if (res > m)
+                res -= m;
+        }
+        tmp <<= 1;
+        if (tmp > m)
+            tmp -= m;
+        b >>= 1;
+    }
+    return res;
+}
+```
 
 
 ## 快速幂
@@ -36,20 +56,19 @@ ll fastpow(ll base, ll exp)
 
 ### 取模
 
+-   需要使用快速乘 `fastmul` 函数。
+
 ```cpp
-ll fastpow(ll base, ll exp, ll mod)
+lli fastpow(lli a, lli b, lli m)
 {
-    ll t, y;
-    t = 1LL;
-    y = base;
-    while (exp != 0LL)
-    {
-        if ((exp & 1LL) == 1LL)
-            t = t * y % mod;
-        y = y * y % mod;
-        exp = exp >> 1LL;
+    lli res = 1, tmp = a;
+    while (b > 0) {
+        if (b & 1 == 1)
+            res = fastmul(res, tmp, m);
+        tmp = fastmul(tmp, tmp, m);
+        b >>= 1;
     }
-    return t % mod;
+    return res;
 }
 ```
 
@@ -141,6 +160,46 @@ bool is_prime(ll x)
 }
 ```
 
+### Miller-Rabin
+
+-   需要使用快速幂 `fastpow` 函数。
+-   是一个 $O(1)$ 的算法
+-   在 $10^{18}$ 以内取前 $12$ 个质数即可。
+
+```cpp
+bool test(lli n, lli k)
+{
+    if (fastpow(k, n - 1, n) != 1)
+        return false;
+    lli t = n - 1, tmp;
+    while (t % 2 == 0) {
+        t >>= 1;
+        tmp = fexp.pow(k, t, n);
+        if (tmp != 1 && tmp != n - 1)
+            return false;
+        if (tmp == n - 1)
+            return true;
+    }
+    return true;
+}
+bool is_prime(lli n)
+{
+    if (n == 1 || (n > 2 && n % 2 == 0))
+        return false;
+    lli samples[14] = {12,
+        2, 3, 5, 7,  // n < 3.2e9
+        11, 13, 17, 19, 23, 29, 31, 37,  // n < 1.8e19
+        41,  // n < 3.3e25
+    };
+    rep(i, 1, samples[0]) {
+        if (n == samples[i])
+            return true;
+        if (n > samples[i] && !test(n, samples[i]))
+            return false;
+    }
+    return true;  // Certain prime
+}
+```
 
 
 ## 求逆元
