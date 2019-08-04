@@ -12,14 +12,16 @@
 typedef long long ll
 ```
 
-## 快速幂
+## 快速乘
 
 ```cpp
-lli fastmul(lli a, lli b, lli m)
+ll fastmul(ll a, ll b, ll m)
 {
-    lli res = 0, tmp = a % m;
-    while (b > 0) {
-        if (b & 1 == 1) {
+    ll res = 0, tmp = a % m;
+    while (b > 0)
+    {
+        if (b & 1 == 1)
+        {
             res += tmp;
             if (res > m)
                 res -= m;
@@ -32,6 +34,7 @@ lli fastmul(lli a, lli b, lli m)
     return res;
 }
 ```
+
 
 
 ## 快速幂
@@ -59,10 +62,11 @@ ll fastpow(ll base, ll exp)
 -   需要使用快速乘 `fastmul` 函数。
 
 ```cpp
-lli fastpow(lli a, lli b, lli m)
+ll fastpow(ll a, ll b, ll m)
 {
-    lli res = 1, tmp = a;
-    while (b > 0) {
+    ll res = 1, tmp = a;
+    while (b > 0)
+    {
         if (b & 1 == 1)
             res = fastmul(res, tmp, m);
         tmp = fastmul(tmp, tmp, m);
@@ -140,6 +144,8 @@ ll lcm(ll a, ll b)
 
 ## 判断素数
 
+### 6 优化方法
+
 -   原理：除了 `2` 与 `3` 之外，质数一定出现在 `6` 的两侧。
 
 ```cpp
@@ -167,14 +173,15 @@ bool is_prime(ll x)
 -   在 $10^{18}$ 以内取前 $12$ 个质数即可。
 
 ```cpp
-bool test(lli n, lli k)
+bool test(ll n, ll k)
 {
     if (fastpow(k, n - 1, n) != 1)
         return false;
-    lli t = n - 1, tmp;
-    while (t % 2 == 0) {
+    ll t = n - 1, tmp;
+    while (t % 2 == 0)
+    {
         t >>= 1;
-        tmp = fexp.pow(k, t, n);
+        tmp = fastpow(k, t, n);
         if (tmp != 1 && tmp != n - 1)
             return false;
         if (tmp == n - 1)
@@ -182,16 +189,17 @@ bool test(lli n, lli k)
     }
     return true;
 }
-bool is_prime(lli n)
+bool is_prime(ll n)
 {
     if (n == 1 || (n > 2 && n % 2 == 0))
         return false;
-    lli samples[14] = {12,
+    ll samples[14] = {12,
         2, 3, 5, 7,  // n < 3.2e9
         11, 13, 17, 19, 23, 29, 31, 37,  // n < 1.8e19
         41,  // n < 3.3e25
     };
-    rep(i, 1, samples[0]) {
+    for (ll i = 1; i <= samples[0]; i++)
+    {
         if (n == samples[i])
             return true;
         if (n > samples[i] && !test(n, samples[i]))
@@ -200,6 +208,7 @@ bool is_prime(lli n)
     return true;  // Certain prime
 }
 ```
+
 
 
 ## 求逆元
