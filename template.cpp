@@ -1,20 +1,21 @@
-#include <iostream> // C++ I/O
-#include <string>   // C++ string
-#include <fstream>  // File I/O
-#include <sstream>  // String stream I/O
-#include <iomanip>  // C++ I/O manipulator
+#include <iostream>  // C++ I/O
+#include <string>    // C++ string
+#include <fstream>   // File I/O
+#include <sstream>   // String stream I/O
+#include <iomanip>   // C++ I/O manipulator
 
-#include <cstdlib> // C library
-#include <cstdio>  // C I/O
-#include <ctime>   // C time
-#include <cmath>   // Math library
-#include <cstring> // C strings
+#include <cstdlib>   // C library
+#include <cstdio>    // C I/O
+#include <ctime>     // C time
+#include <cmath>     // Math library
+#include <cstring>   // C strings
 
 #include <vector>    // Vector
 #include <queue>     // Queue
 #include <stack>     // Stack
 #include <map>       // Map
 #include <set>       // Set
+#include <bitset>    // Bitset
 #include <algorithm> // Algorithms
 
 using namespace std;
