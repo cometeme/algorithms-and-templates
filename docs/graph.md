@@ -74,53 +74,75 @@ void dijkstra(int s)
 -   适用于稀疏图
 
 ```cpp
-struct node
-{
-    int to, dis;
-    node(int p, int d)
-    {
-        to = p;
-        dis = d;
-    }
-};
+const int MAXN = 200010, MAXM = 200010;
 
-bool operator<(const node &a, const node &b)
+int h[MAXN], tot = 0;
+
+struct edge
 {
-    return a.dis > b.dis;
+    int u, v;
+    ll w;
+    edge() { u = v = w = 0; }
+    edge(int u, int v, ll w) { this->u = u, this->v = v, this->w = w; }
+} e[MAXM];
+
+void add_edge(int x, int y, ll w)
+{
+    tot++;
+    e[tot].u = y;
+    e[tot].v = h[x];
+    e[tot].w = w;
+    h[x] = tot;
 }
 
-const int MAXN = 10010;
+ll dis[MAXN];
+bool vis[MAXN];
 
-int dis[MAXN];
-vector<node> G[MAXN];
-priority_queue<node> q;
+struct node
+{
+    int v;
+    ll w;
+    node() {v = w = 0;}
+    node(int v, ll w) {this->v = v, this->w = w;}
+};
+
+bool operator<(const node &x, const node &y)
+{
+    return x.w > y.w;
+}
+
+priority_queue<node> p;
 
 void dijkstra(int s)
 {
-    memset(dis, 0x3f, sizeof(dis));
-
     dis[s] = 0;
-    q.push(node(s, 0));
 
-    while (!q.empty())
+    p.push(node(s, 0));
+
+    while (!p.empty())
     {
-        node tmp = q.top(); q.pop();
-        int len = G[tmp.to].size();
-        for (int i = 0; i < len; i++)
+        node cur = p.top(); p.pop();
+
+        if (vis[cur.v])
+            continue;
+        vis[cur.v] = true;
+
+        int nxt = h[cur.v];
+
+        while (nxt != -1)
         {
-            int to = G[tmp.to][i].to;
-            int d = G[tmp.to][i].dis;
-            if (dis[to] > tmp.dis + d)
+            if (dis[cur.v] + e[nxt].w < dis[e[nxt].u])
             {
-                dis[to] = tmp.dis + d;
-                q.push(node(to, dis[to]));
+                dis[e[nxt].u] = dis[cur.v] + e[nxt].w;
+                p.push(node(e[nxt].u, dis[e[nxt].u]));
             }
+            nxt = e[nxt].v;
         }
     }
 }
 ```
 
-### SPFA (SLF 优化) (带路径)
+### SPFA (SLF 优化)
 
 -   时间复杂度 O(VE)
 -   可以处理负权值
@@ -128,78 +150,67 @@ void dijkstra(int s)
 -   时间不稳定，没有负权值建议使用 Dijkstra 算法
 
 ```cpp
-struct node
+const int MAXN = 510, MAXM = 10010;
+
+int h[MAXN], tot = 0, cnt[MAXN];
+ll dis[MAXN];
+bool vis[MAXN];
+
+struct edge
 {
-    int to, dis;
-    node(int p, int d)
-    {
-        to = p;
-        dis = d;
-    }
-};
+    int u, v, w;
+    edge() { u = v = w = 0; }
+    edge(int u, int v, int w) { this->u = u, this->v = v, this->w = w; }
+} e[MAXM];
 
-const int MAXN = 10010;
-int n;
-
-vector<node> G[MAXN];
-bool in[MAXN];
-int cnt[MAXN], dis[MAXN], path[MAXN];
+void add_edge(int x, int y, ll w)
+{
+    tot++;
+    e[tot].u = y;
+    e[tot].v = h[x];
+    e[tot].w = w;
+    h[x] = tot;
+}
 
 bool SPFA(int s)
 {
     deque<int> q;
-    int x, to;
-
-    memset(cnt, 0, sizeof(cnt));
-    memset(in, 0, sizeof(in));
-    memset(dis, 0x3f, sizeof(dis));
-    memset(path, -1, sizeof(-1));
-
     q.push_back(s);
-    cnt[s]++;
     dis[s] = 0;
-    in[s] = true;
+    vis[s] = true;
+    cnt[s]++;
 
     while (!q.empty())
     {
-        x = q.front();
-        q.pop_front();
-        in[x] = false;
-        int len = G[x].size();
-        for (int i = 0; i < len; i++)
+        int cur = q.front(); q.pop_front();
+        vis[cur] = false;
+
+        int nxt = h[cur];
+        while (nxt != -1)
         {
-            to = G[x][i].to;
-            if ((dis[x] < INF) && (dis[to] > dis[x] + G[x][i].dis))
+            if (dis[e[nxt].u] > dis[cur] + e[nxt].w)
             {
-                dis[to] = dis[x] + G[x][i].dis;
-                path[to] = x;
-                if (!in[to])
+                dis[e[nxt].u] = dis[cur] + e[nxt].w;
+
+                if (!vis[e[nxt].u])
                 {
-                    in[to] = true;
-                    cnt[to]++;
-                    if (cnt[to] == n)
+                    vis[e[nxt].u] = true;
+                    cnt[e[nxt].u]++;
+
+                    if (cnt[e[nxt].u] == n)
                         return false;
-                    if (!q.empty())
-                    {
-                        if (dis[to] > dis[q.front()])
-                            q.push_back(to);
-                        else
-                            q.push_front(to);
-                    }
+
+                    if (q.empty() || dis[e[nxt].u]>dis[q.front()])
+                        q.push_back(e[nxt].u);
                     else
-                        q.push_back(to);
+                        q.push_front(e[nxt].u);
                 }
             }
+
+            nxt = e[nxt].v;
         }
     }
-    return true;
-}
 
-void print_path(int x)
-{
-    if (x == -1)
-        return;
-    print_path(path[x]);
-    cout << x << " ";
+    return true;
 }
 ```
