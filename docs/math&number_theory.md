@@ -59,7 +59,24 @@ ll fastpow(ll base, ll exp)
 
 ### 取模
 
--   需要使用快速乘 `fastmul` 函数。
+```cpp
+ll fastpow(ll base, ll exp, ll mod)
+{
+    ll t, y;
+    t = 1LL;
+    y = base;
+    while (exp != 0LL)
+    {
+        if ((exp & 1LL) == 1LL)
+            t = t * y % mod;
+        y = y * y % mod;
+        exp = exp >> 1LL;
+    }
+    return t % mod;
+}
+```
+
+### 使用快速乘
 
 ```cpp
 ll fastpow(ll a, ll b, ll m)
