@@ -4,14 +4,6 @@ A algorithms & templates repository for contests. [Online doc](https://www.comet
 
 ### Files
 
--   snippets
-
-    -   atom.cson
-        A snippets configue file for Atom, put this file in `~/.atom` in macOS or `C:\Users\{User Name}\.atom\` in Windows.
-
-    -   vscode.json
-        A snippets configue file for Visual Studio Code. Use `Crtl+Shift+P` (`Cmd+Shift+P` on macOS) to open Command Palette. Type `snippets`, and choose `C++`. Then paste the code in.
-
 -   doc
 
     -   data_structure
@@ -22,6 +14,9 @@ A algorithms & templates repository for contests. [Online doc](https://www.comet
 -   template.cpp
     A template for contests.
 
+-   vscode.json
+    A snippets configue file for Visual Studio Code. Use `Crtl+Shift+P` (`Cmd+Shift+P` on macOS) to open Command Palette. Type `snippets`, and choose `C++`. Then paste the code in.
+    
 ### Contributor
 
 This template is written by HIT ACM team Keyb0ardInterrupt.
