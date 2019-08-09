@@ -115,3 +115,93 @@ int main()
     return 0;
 }
 ```
+
+
+
+## 线段树
+
+```cpp
+const int MAXN = 100010;
+
+ll a[MAXN], sum[MAXN << 2], lazyadd[MAXN << 2];
+
+#define ls(x) (x << 1)
+#define rs(x) (x << 1 | 1)
+
+void pushup(int x)
+{
+    sum[x] = sum[ls(x)] + sum[rs(x)];
+}
+void pushdown(int x, int l, int r)
+{
+    if (l == r)
+    {
+        sum[x] += lazyadd[x];
+        lazyadd[x] = 0;
+        return;
+    }
+    int mid = (l + r) >> 1;
+    lazyadd[ls(x)] += lazyadd[x];
+    lazyadd[rs(x)] += lazyadd[x];
+    sum[ls(x)] += lazyadd[x] * (mid - l + 1);
+    sum[rs(x)] += lazyadd[x] * (r - mid);
+    lazyadd[x] = 0;
+}
+void build(int x, int l, int r)
+{
+    lazyadd[x] = 0;
+    if (l == r)
+    {
+        sum[x] = a[l];
+        return;
+    }
+    int mid = (l + r) >> 1;
+    build(ls(x), l, mid);
+    build(rs(x), mid + 1, r);
+    pushup(x);
+}
+void add(int x, int l, int r, int tl, int tr, int v)
+{
+    if (tl <= l && r <= tr)
+    {
+        sum[x] += v * (r - l + 1);
+        lazyadd[x] += v;
+        return;
+    }
+    pushdown(x, l, r);
+    int mid = (l + r) >> 1;
+    if (tl <= mid)
+        add(ls(x), l, mid, tl, tr, v);
+    if (tr > mid)
+        add(rs(x), mid + 1, r, tl, tr, v);
+    pushup(x);
+}
+void change(int x, int l, int r, int pos, int v)
+{
+    pushdown(x, l, r);
+    if (l == r)
+    {
+        sum[x] = v;
+        return;
+    }
+    int mid = (l + r) >> 1;
+    if (pos <= mid)
+        change(ls(x), l, mid, pos, v);
+    if (pos > mid)
+        change(rs(x), mid + 1, r, pos, v);
+    pushup(x);
+}
+ll query(int x, int l, int r, int tl, int tr)
+{
+    if (tl <= l && r <= tr)
+        return sum[x];
+    pushdown(x, l, r);
+    int mid = (l + r) >> 1;
+    ll res = 0;
+    if (tl <= mid)
+        res += query(ls(x), l, mid, tl, tr);
+    if (tr > mid)
+        res += query(rs(x), mid + 1, r, tl, tr);
+    return res;
+}
+```
