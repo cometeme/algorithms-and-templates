@@ -52,6 +52,48 @@ int manacher(char s[], int len)
 
 
 
+## kmp
+
+```cpp
+const int MAXN = 1000010, MAXM = 1000010;
+
+char s1[MAXN], s2[MAXM];
+int nxt[MAXM];
+
+void getnxt(char s[])
+{
+    nxt[0] = -1;
+    int x = -1, len = strlen(s);
+    for (int i = 0; i < len; i++)
+    {
+        while (x != -1 && s[i] != s[x])
+            x = nxt[x];
+        nxt[i + 1] = ++x;
+    }
+}
+
+int kmp(char a[], char b[])
+{
+    int cnt = 0, x = 0;
+    int lena = strlen(a), lenb = strlen(b);
+
+    for (int i = 0; i < lena; i++)
+    {
+        while (x != -1 && a[i] != b[x])
+            x = nxt[x];
+        x++;
+        if (x == lenb)
+        {
+            cnt++;
+            x = nxt[x];
+        }
+    }
+    return cnt;
+}
+```
+
+
+
 ## 拓展 kmp 算法 (exkmp)
 
 -   求 `t` 与 `s` 的每一个后缀的最长公共前缀
