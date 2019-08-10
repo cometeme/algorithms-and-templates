@@ -1,5 +1,57 @@
 # 字符串模版
 
+## 马拉车算法 (manacher)
+
+-   返回最长回文子串的长度
+-   注意 `ns` 和 `p` 数组的大小需要为原来字符串长度的两倍
+
+```cpp
+const int MAXN = 1000010;
+
+char s[MAXN], ns[MAXN << 1];
+int p[MAXN << 1];
+
+int manacher(char s[], int len)
+{
+	for (int i = 0; i < len; i++)
+	{
+		ns[2 * i] = '#';
+		ns[2 * i + 1] = s[i];
+	}
+
+	ns[len * 2] = '#';
+
+	int mx = 0, id;
+
+	for (int i = 1; i <= 2 * len; i++)
+	{
+		if (mx > i)
+		    p[i] = min(p[2 * id - i], mx - i);
+
+		else
+		    p[i] = 1;
+
+        while (ns[i - p[i]] == ns[i + p[i]] && (i - p[i] >= 0) && (i + p[i] <= len * 2))
+            p[i]++;
+
+        if (mx < i + p[i])
+        {
+            id = i;
+            mx = i + p[i];
+        }
+	}
+
+	int res = 0;
+    
+	for (int i = 1; i <= 2 * len; i++)
+		res = max(res, p[i]);
+	
+	return res - 1;
+}
+```
+
+
+
 ## 拓展 kmp 算法 (exkmp)
 
 -   求 `t` 与 `s` 的每一个后缀的最长公共前缀
