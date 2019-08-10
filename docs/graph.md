@@ -74,23 +74,23 @@ void dijkstra(int s)
 -   适用于稀疏图
 
 ```cpp
-const int MAXN = 200010, MAXM = 200010;
+const int MAXN = 100010, MAXM = 200010;
 
 int h[MAXN], tot = 0;
 
 struct edge
 {
-    int u, v;
+    int v, nxt;
     ll w;
-    edge() { u = v = w = 0; }
-    edge(int u, int v, ll w) { this->u = u, this->v = v, this->w = w; }
+    edge() { v = nxt = w = 0; }
+    edge(int v, int nxt, ll w) { this->v = v, this->nxt = nxt, this->w = w; }
 } e[MAXM];
 
 void add_edge(int x, int y, ll w)
 {
     tot++;
-    e[tot].u = y;
-    e[tot].v = h[x];
+    e[tot].v = y;
+    e[tot].nxt = h[x];
     e[tot].w = w;
     h[x] = tot;
 }
@@ -102,8 +102,8 @@ struct node
 {
     int v;
     ll w;
-    node() {v = w = 0;}
-    node(int v, ll w) {this->v = v, this->w = w;}
+    node() { v = w = 0; }
+    node(int v, ll w) { this->v = v, this->w = w; }
 };
 
 bool operator<(const node &x, const node &y)
@@ -127,17 +127,12 @@ void dijkstra(int s)
             continue;
         vis[cur.v] = true;
 
-        int nxt = h[cur.v];
-
-        while (nxt != -1)
-        {
-            if (dis[cur.v] + e[nxt].w < dis[e[nxt].u])
+        for (int i = h[cur.v]; i; i = e[i].nxt)
+            if (dis[cur.v] + e[i].w < dis[e[i].v])
             {
-                dis[e[nxt].u] = dis[cur.v] + e[nxt].w;
-                p.push(node(e[nxt].u, dis[e[nxt].u]));
+                dis[e[i].v] = dis[cur.v] + e[i].w;
+                p.push(node(e[i].v, dis[e[i].v]));
             }
-            nxt = e[nxt].v;
-        }
     }
 }
 ```
@@ -150,24 +145,26 @@ void dijkstra(int s)
 -   时间不稳定，没有负权值建议使用 Dijkstra 算法
 
 ```cpp
-const int MAXN = 510, MAXM = 10010;
+const int MAXN = 10010, MAXM = 500010;
 
+int n;
 int h[MAXN], tot = 0, cnt[MAXN];
 ll dis[MAXN];
 bool vis[MAXN];
 
 struct edge
 {
-    int u, v, w;
-    edge() { u = v = w = 0; }
-    edge(int u, int v, int w) { this->u = u, this->v = v, this->w = w; }
+    int v, nxt;
+    ll w;
+    edge() { v = nxt = w = 0; }
+    edge(int v, int nxt, ll w) { this->v = v, this->nxt = nxt, this->w = w; }
 } e[MAXM];
 
 void add_edge(int x, int y, ll w)
 {
     tot++;
-    e[tot].u = y;
-    e[tot].v = h[x];
+    e[tot].v = y;
+    e[tot].nxt = h[x];
     e[tot].w = w;
     h[x] = tot;
 }
@@ -185,29 +182,26 @@ bool SPFA(int s)
         int cur = q.front(); q.pop_front();
         vis[cur] = false;
 
-        int nxt = h[cur];
-        while (nxt != -1)
+        for (int i = h[cur]; i; i = e[i].nxt)
         {
-            if (dis[e[nxt].u] > dis[cur] + e[nxt].w)
+            if (dis[e[i].v] > dis[cur] + e[i].w)
             {
-                dis[e[nxt].u] = dis[cur] + e[nxt].w;
+                dis[e[i].v] = dis[cur] + e[i].w;
 
-                if (!vis[e[nxt].u])
+                if (!vis[e[i].v])
                 {
-                    vis[e[nxt].u] = true;
-                    cnt[e[nxt].u]++;
+                    vis[e[i].v] = true;
+                    cnt[e[i].v]++;
 
-                    if (cnt[e[nxt].u] == n)
+                    if (cnt[e[i].v] == n)
                         return false;
 
-                    if (q.empty() || dis[e[nxt].u]>dis[q.front()])
-                        q.push_back(e[nxt].u);
+                    if (q.empty() || dis[e[i].v]>dis[q.front()])
+                        q.push_back(e[i].v);
                     else
-                        q.push_front(e[nxt].u);
+                        q.push_front(e[i].v);
                 }
             }
-
-            nxt = e[nxt].v;
         }
     }
 
