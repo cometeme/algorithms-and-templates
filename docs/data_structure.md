@@ -10,20 +10,14 @@
 -   `connected(int a, int b)` ：查找两个元素是否属于一个集合
 
 ```cpp
-const int MAXN = 1010;
+const int MAXN = 100010;
 
-class dsu
+struct dsu
 {
-private:
     int nd[MAXN];
-public:
-    dsu()
+    void init(int n)
     {
-        init();
-    }
-    void init()
-    {
-        for (int i = 0; i < MAXN; i++)
+        for (int i = 0; i <= n; i++)
             nd[i] = i;
     }
     int find(int x)
