@@ -196,7 +196,7 @@ bool SPFA(int s)
                     if (cnt[e[i].v] == n)
                         return false;
 
-                    if (q.empty() || dis[e[i].v]>dis[q.front()])
+                    if (q.empty() || dis[e[i].v] > dis[q.front()])
                         q.push_back(e[i].v);
                     else
                         q.push_front(e[i].v);
