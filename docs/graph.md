@@ -115,6 +115,9 @@ priority_queue<node> p;
 
 void dijkstra(int s)
 {
+    memset(vis, 0, sizeof(vis));
+    memset(dis, 0x3f, sizeof(dis));
+
     dis[s] = 0;
 
     p.push(node(s, 0));
@@ -141,13 +144,13 @@ void dijkstra(int s)
 
 -   时间复杂度 O(VE)
 -   可以处理负权值
+-   需要设置 `maxcnt` ，一般为顶点数 `n`
 -   返回 `true` 时代表存在最短路，返回 `false` 时代表存在负环。
 -   时间不稳定，没有负权值建议使用 Dijkstra 算法
 
 ```cpp
 const int MAXN = 10010, MAXM = 500010;
 
-int n;
 int h[MAXN], tot = 0, cnt[MAXN];
 ll dis[MAXN];
 bool vis[MAXN];
@@ -169,8 +172,12 @@ void add_edge(int x, int y, ll w)
     h[x] = tot;
 }
 
-bool SPFA(int s)
+bool SPFA(int s, int maxcnt)
 {
+    memset(vis, 0, sizeof(vis));
+    memset(cnt, 0, sizeof(cnt));
+    memset(dis, 0x3f, sizeof(dis));
+
     deque<int> q;
     q.push_back(s);
     dis[s] = 0;
@@ -193,7 +200,7 @@ bool SPFA(int s)
                     vis[e[i].v] = true;
                     cnt[e[i].v]++;
 
-                    if (cnt[e[i].v] == n)
+                    if (cnt[e[i].v] >= maxcnt)
                         return false;
 
                     if (q.empty() || dis[e[i].v] > dis[q.front()])
