@@ -102,9 +102,7 @@ ll fastpow(ll a, ll b, ll m)
 ```cpp
 ll gcd(ll a, ll b)
 {
-    if (b == 0LL)
-        return a;
-    return gcd(b, a % b);
+    return (b == 0LL) ? a : gcd(b, a % b);
 }
 ```
 
