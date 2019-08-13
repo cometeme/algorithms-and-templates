@@ -143,6 +143,26 @@ ll gcd(ll a, ll b)
 
 
 
+## exgcd
+
+```cpp
+ll exgcd(ll a, ll b, ll &x, ll &y)
+{
+    if (a == 0LL && b == 0LL)
+        return -1LL;
+    if (b == 0LL)
+    {
+        x = 1LL, y = 0LL;
+        return a;
+    }
+    ll d = exgcd(b, a % b, y, x);
+    y -= a / b * x;
+    return d;
+}
+```
+
+
+
 ## LCM (最小公倍数)
 
 -   需要使用最大公约数 `gcd` 函数。
@@ -245,21 +265,6 @@ ll fermat(ll a, ll p)
 * 注意： `p` 和 `a` 一定要互质
 
 ```cpp
-ll exgcd(ll a, ll b, ll &x, ll &y)
-{
-    if (a == 0 && b == 0)
-        return -1LL;
-    if (b == 0)
-    {
-        x = 1LL;
-        y = 0LL;
-        return a;
-    }
-    ll d = exgcd(b, a % b, y, x);
-    y -= a / b * x;
-    return d;
-}
-
 ll mod_reverse(ll a, ll n)
 {
     ll x, y, d = exgcd(a, n, x, y);
