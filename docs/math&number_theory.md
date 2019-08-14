@@ -14,6 +14,17 @@ typedef long long ll
 
 ## 快速乘
 
+### 玄学版
+
+```cpp
+ll fastmul(ll a, ll b, ll mod)
+{
+    return a * b - (LL)((long double)a / mod * b + EPS) * mod;
+}
+```
+
+### 普通版
+
 ```cpp
 ll fastmul(ll a, ll b, ll m)
 {
