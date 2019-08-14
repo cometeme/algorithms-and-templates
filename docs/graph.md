@@ -215,3 +215,149 @@ bool SPFA(int s, int maxcnt)
     return true;
 }
 ```
+
+
+
+## 匈牙利算法 (二分图最大匹配)
+
+-   输入为 `x` 点的数量 `nx` ，输出最大匹配的个数
+
+```cpp
+const int MAXN = 10010, MAXM = MAXN << 1;
+
+int top = 0, s[MAXN];
+int h[MAXN], tot = 0;
+int mx[MAXN], my[MAXN];
+bool vis[MAXN];
+
+struct edge
+{
+    int v, nxt, w;
+    edge() { v = nxt = w = 0; }
+    edge(int v, int nxt, int w) { this->v = v, this->nxt = nxt, this->w = w; }
+} e[MAXM];
+
+void add_edge(int x, int y, int w)
+{
+    tot++;
+    e[tot].v = y;
+    e[tot].nxt = h[x];
+    e[tot].w = w;
+    h[x] = tot;
+}
+
+bool dfs(int u)
+{
+    for (int i = h[u]; i; i = e[i].nxt)
+    {
+        int v = e[i].v;
+        if (!vis[v])
+        {
+            vis[v] = true;
+            s[++top] = v;
+            if (my[v] == -1 || dfs(my[v]))
+            {
+                my[v] = u;
+                mx[u] = v;
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+int hungary(int nx)
+{
+    int res = 0;
+    memset(mx, -1, sizeof(mx));
+    memset(my, -1, sizeof(my));
+    for (int i = 1; i <= nx; i++)
+    {
+        if (mx[i] == -1)
+        {
+            for (int j = 1; j <= top; j++)
+                vis[s[j]] = 0;
+            top = 0;
+            if (dfs(i))
+                res++;
+            else
+                break;
+        }
+    }
+    return res;
+}
+```
+
+
+
+## KM 算法
+
+-   需要指定 `x` 和 `y` 的点数 `cnt`
+-   `lk[i]` 是与 `y[i]` 匹配的 `x` 的下标
+
+```cpp
+const int MAXN = 110;
+int cnt;
+bool visx[MAXN], visy[MAXN];
+int lx[MAXN], ly[MAXN], lk[MAXN], w[MAXN][MAXN], slack[MAXN];
+
+bool dfs(int x)
+{
+    visx[x] = true;
+    for (int y = 1; y <= cnt; y++)
+    {
+        if (visy[y])
+            continue;
+        int t = lx[x] + ly[y] - w[x][y];
+        if (t == 0)
+        {
+            visy[y] = true;
+            if (lk[y] == -1 || dfs(lk[y]))
+            {
+                lk[y] = x;
+                return true;
+            }
+        }
+        else if (slack[y] > t)
+            slack[y] = t;
+    }
+    return false;
+}
+
+void KM()
+{
+    memset(lk, -1, sizeof(lk));
+    memset(lx, 0, sizeof(lx));
+    memset(ly, 0, sizeof(ly));
+    for (int i = 1; i <= cnt; i++)
+        for (int j = 1; j <= cnt; j++)
+            if (w[i][j] > lx[i])
+                lx[i] = w[i][j];
+    for (int x = 1; x <= cnt; x++)
+    {
+        for (int i = 1; i <= cnt; i++)
+            slack[i] = INF;
+        while (true)
+        {
+            memset(visx, 0, sizeof(visx));
+            memset(visy, 0, sizeof(visy));
+            if (dfs(x))
+                break;
+            int d = INF;
+            for (int i = 1; i <= cnt; i++)
+                if (!visy[i] && d > slack[i])
+                    d = slack[i];
+            for (int i = 1; i <= cnt; i++)
+                if (visx[i])
+                    lx[i] -= d;
+            for (int i = 1; i <= cnt; i++)
+            {
+                if (visy[i])
+                    ly[i] += d;
+                else
+                    slack[i] -= d;
+            }
+        }
+    }
+}
+```
