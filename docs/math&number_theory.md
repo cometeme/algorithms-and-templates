@@ -293,6 +293,48 @@ ll mod_reverse(ll a, ll n)
 
 
 
+## 组合数逆元
+
+```cpp
+const int mod = 998244353;
+const int MAXN = 1000000;
+
+ll fastpow(ll base, ll exp)
+{
+    ll t, y;
+    t = 1LL;
+    y = base;
+    while (exp != 0LL)
+    {
+        if ((exp & 1LL) == 1LL)
+            t = t * y % mod;
+        y = y * y % mod;
+        exp = exp >> 1LL;
+    }
+    return t % mod;
+}
+
+ll inv[MAXN + 10], f[MAXN + 10];
+void init()
+{
+    f[0] = 1;
+    for (int i = 1; i <= MAXN; i++)
+        f[i] = f[i - 1] * i % mod;
+    inv[MAXN] = fastpow(f[MAXN], mod - 2);
+    for (int i = MAXN - 1; i >= 0; i--)
+        inv[i] = inv[i + 1] * (i + 1) % mod;
+}
+
+ll C(ll n, ll m)
+{
+    if (n == m || m == 0)
+        return 1;
+    return (f[n] * inv[m] % mod * inv[n - m] % mod) % mod;
+}
+```
+
+
+
 ## 质因子分解
 
 ### 普通版本
