@@ -223,7 +223,7 @@ bool SPFA(int s, int maxcnt)
 -   输入为 `x` 点的数量 `nx` ，输出最大匹配的个数
 
 ```cpp
-const int MAXN = 10010, MAXM = MAXN << 1;
+const int MAXN = 1010 MAXM = MAXN;
 
 int top = 0, s[MAXN];
 int h[MAXN], tot = 0;
@@ -232,17 +232,16 @@ bool vis[MAXN];
 
 struct edge
 {
-    int v, nxt, w;
-    edge() { v = nxt = w = 0; }
-    edge(int v, int nxt, int w) { this->v = v, this->nxt = nxt, this->w = w; }
+    int v, nxt;
+    edge() { v = nxt = 0; }
+    edge(int v, int nxt) { this->v = v, this->nxt = nxt; }
 } e[MAXM];
 
-void add_edge(int x, int y, int w)
+void add_edge(int x, int y)
 {
     tot++;
     e[tot].v = y;
     e[tot].nxt = h[x];
-    e[tot].w = w;
     h[x] = tot;
 }
 
@@ -253,36 +252,26 @@ bool dfs(int u)
         int v = e[i].v;
         if (!vis[v])
         {
-            vis[v] = true;
-            s[++top] = v;
+            vis[v] = 1, s[++top] = v;
             if (my[v] == -1 || dfs(my[v]))
             {
                 my[v] = u;
-                mx[u] = v;
-                return true;
+                return 1;
             }
         }
     }
-    return false;
+    return 0;
 }
 
-int hungary(int nx)
+int hungary(int n)
 {
     int res = 0;
-    memset(mx, -1, sizeof(mx));
     memset(my, -1, sizeof(my));
-    for (int i = 1; i <= nx; i++)
+    for (int i = 1; i <= n; i++)
     {
-        if (mx[i] == -1)
-        {
-            for (int j = 1; j <= top; j++)
-                vis[s[j]] = 0;
-            top = 0;
-            if (dfs(i))
-                res++;
-            else
-                break;
-        }
+        while (top)
+            vis[s[top]] = 0, top--;
+        res += dfs(i);
     }
     return res;
 }
