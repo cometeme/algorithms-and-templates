@@ -402,7 +402,7 @@ void get_prime()
     for (int i = 2; i <= MAXN; i++)
     {
         if (isprime[i])
-            prime[++primesize]=i;
+            prime[++primesize] = i;
         for (int j = 1; j <= primesize && i * prime[j] <= MAXN; j++)
         {
             isprime[i * prime[j]] = false;
@@ -413,7 +413,48 @@ void get_prime()
 }
 ```
 
-### 筛法求莫比乌斯函数
+### 欧拉函数筛
+
+```cpp
+const int N = 1000010;
+
+bool isprime[N];
+int prime[N], phi[N], tot;
+
+int phi2[N];
+
+void getphi(int n)
+{
+    memset(isprime, true, sizeof(isprime));
+    int x;
+    tot = 0;
+    phi[1] = 1;
+    for (int i = 2; i <= n; i++)
+    {
+        if (isprime[i])
+        {
+            prime[++tot] = i;
+            phi[i] = i - 1;
+        }
+        for (int j = 1; j <= tot; j++)
+        {
+            x = i * prime[j];
+            if (x > n)
+                break;
+            isprime[x] = false;
+            if (i % prime[j] == 0)
+            {
+                phi[x] = phi[i] * prime[j];
+                break;
+            }
+            else
+                phi[x] = phi[i] * phi[prime[j]];
+        }
+    }
+}
+```
+
+### 莫比乌斯函数筛
 
 ```cpp
 const int N = 1000010;
