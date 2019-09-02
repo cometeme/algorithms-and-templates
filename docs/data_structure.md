@@ -44,21 +44,22 @@ const int MAXN = 500010;
 
 struct BIT
 {
-    #define lowbit(x) (x & (-x))
-    int n, t[MAXN];
+    inline int lowbit(int x) { return x & (-x); }
+    int n;
+    ll t[MAXN];
     void init(int n)
     {
         this->n = n;
-        memset(t, 0, sizeof(t));
+        memset(t + 1, 0, sizeof(t[0]) * n);
     }
     void add(int pos, int v)
     {
         for (; pos <= n; pos += lowbit(pos))
             t[pos] += v;
     }
-    int query(int pos)
+    ll query(int pos)
     {
-        int res = 0;
+        ll res = 0;
         for (; pos > 0; pos -= lowbit(pos))
             res += t[pos];
         return res;
