@@ -218,6 +218,154 @@ bool SPFA(int s, int maxcnt)
 
 
 
+
+## 强连通分量 (Tarjan)
+
+### 有向图
+
+```cpp
+const int MAXN = 200010, MAXM = MAXN << 1;
+int h[MAXN], tot = 0;
+
+struct edge
+{
+    int v, nxt;
+    edge() { v = nxt = 0; }
+    edge(int v, int nxt) { this->v = v, this->nxt = nxt; }
+} e[MAXM];
+
+void add_edge(int x, int y)
+{
+    tot++;
+    e[tot].v = y;
+    e[tot].nxt = h[x];
+    h[x] = tot;
+}
+
+int s[MAXN], top;
+int dfs_num, col_num;
+int dfn[MAXN], low[MAXN], color[MAXN], colorcnt[MAXN];
+bool vis[MAXN];
+
+void Tarjan(int x)
+{
+    dfn[x] = ++dfs_num;
+    low[x] = dfs_num;
+    vis[x] = true;
+    s[++top] = x;
+    for (int i = h[x]; i; i = e[i].nxt)
+    {
+        int temp = e[i].v;
+        if (!dfn[temp])
+        {
+            Tarjan(temp);
+            low[x] = min(low[x], low[temp]);
+        }
+        else if (vis[temp])
+            low[x] = min(low[x], dfn[temp]);
+    }
+    if (dfn[x] == low[x])
+    {
+        vis[x] = false;
+        color[x] = ++col_num;
+        colorcnt[col_num]++;
+        while (s[top] != x)
+        {
+            color[s[top]] = col_num;
+            colorcnt[col_num]++;
+            vis[s[top--]] = false;
+        }
+        top--;
+    }
+}
+
+void solve()
+{
+    memclr(dfn);
+    memclr(low);
+    memclr(color);
+    memclr(colorcnt);
+    memclr(vis);
+    top = dfs_num = col_num = 0;
+
+    for (int i = 1; i <= n; i++)
+        if (dfn[i] == 0)
+            Tarjan(i);
+}
+```
+
+### 无向图
+
+-   `cut` 非零代表该点为割点，必须要初始化 `root` 变量
+
+```cpp
+const int MAXN = 1010, MAXM = 1000 * 1000 + 10;
+
+int h[MAXN], tot = 0;
+
+struct edge
+{
+    int v, nxt;
+    edge() { v = nxt = 0; }
+    edge(int v, int nxt) { this->v = v, this->nxt = nxt; }
+} e[MAXM];
+
+void add_edge(int x, int y)
+{
+    tot++;
+    e[tot].v = y;
+    e[tot].nxt = h[x];
+    h[x] = tot;
+}
+
+int dfs_num, root;
+int dfn[MAXN], low[MAXN], cut[MAXN];
+bool vis[MAXN];
+
+void Tarjan(int u, int pre)
+{
+    dfn[u] = ++dfs_num;
+    low[u] = dfs_num;
+    vis[u] = true;
+    int cnt = 0;
+    for (int i = h[u]; i; i = e[i].nxt)
+    {
+        int v = e[i].v;
+
+        if (v == pre)
+            continue;
+        
+        if (!dfn[v])
+        {
+            Tarjan(v, u);
+            cnt++;
+            low[u] = min(low[u], low[v]);
+
+            if (u == root && cnt > 1)
+                cut[u]++;
+            else if (u != root && low[v] >= dfn[u])
+                cut[u]++;
+        }
+        else if (vis[v])
+            low[u] = min(low[u], dfn[v]);
+    }
+}
+
+void solve(int u)
+{
+    memclr(dfn);
+    memclr(low);
+    memclr(vis);
+    memclr(cut);
+    dfs_num = 0;
+    root = u;
+
+    Tarjan(u, -1);
+}
+```
+
+
+
 ## 匈牙利算法 (二分图最大匹配)
 
 -   输入为 `x` 点的数量 `nx` ，输出最大匹配的个数
