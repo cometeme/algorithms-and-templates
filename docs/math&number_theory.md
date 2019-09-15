@@ -329,7 +329,7 @@ ll C(ll n, ll m)
 {
     if (n == m || m == 0)
         return 1;
-    return (f[n] * inv[m] % mod * inv[n - m] % mod) % mod;
+    return f[n] * inv[m] % mod * inv[n - m] % mod;
 }
 ```
 
