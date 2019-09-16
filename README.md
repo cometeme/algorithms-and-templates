@@ -7,6 +7,7 @@ An algorithms & templates repository for contests. [Online doc](https://www.come
 -   doc
 
     -   data_structure
+    -   dp
     -   graph
     -   math&number_theory
     -   string
