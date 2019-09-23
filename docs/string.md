@@ -54,6 +54,8 @@ int manacher(char s[], int len)
 
 ## kmp
 
+- `next[i]` 表示子串 `s[1:i]` 最长的相同前缀和后缀的长度
+
 ```cpp
 const int MAXN = 1000010, MAXM = 1000010;
 
