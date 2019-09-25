@@ -23,11 +23,6 @@
 struct node
 {
     int to, dis;
-    node(int p, int d)
-    {
-        to = p;
-        dis = d;
-    }
 };
 
 const int MAXN = 10010;
@@ -82,8 +77,6 @@ struct edge
 {
     int v, nxt;
     ll w;
-    edge() { v = nxt = w = 0; }
-    edge(int v, int nxt, ll w) { this->v = v, this->nxt = nxt, this->w = w; }
 } e[MAXM];
 
 void add_edge(int x, int y, ll w)
@@ -102,8 +95,6 @@ struct node
 {
     int v;
     ll w;
-    node() { v = w = 0; }
-    node(int v, ll w) { this->v = v, this->w = w; }
 };
 
 bool operator<(const node &x, const node &y)
@@ -120,7 +111,7 @@ void dijkstra(int s)
 
     dis[s] = 0;
 
-    p.push(node(s, 0));
+    p.push(node{s, 0});
 
     while (!p.empty())
     {
@@ -131,10 +122,10 @@ void dijkstra(int s)
         vis[cur.v] = true;
 
         for (int i = h[cur.v]; i; i = e[i].nxt)
-            if (dis[cur.v] + e[i].w < dis[e[i].v])
+            if (!vis[e[i].v] && dis[cur.v] + e[i].w < dis[e[i].v])
             {
                 dis[e[i].v] = dis[cur.v] + e[i].w;
-                p.push(node(e[i].v, dis[e[i].v]));
+                p.push(node{e[i].v, dis[e[i].v]});
             }
     }
 }
@@ -159,8 +150,6 @@ struct edge
 {
     int v, nxt;
     ll w;
-    edge() { v = nxt = w = 0; }
-    edge(int v, int nxt, ll w) { this->v = v, this->nxt = nxt, this->w = w; }
 } e[MAXM];
 
 void add_edge(int x, int y, ll w)
@@ -230,8 +219,6 @@ int h[MAXN], tot = 0;
 struct edge
 {
     int v, nxt;
-    edge() { v = nxt = 0; }
-    edge(int v, int nxt) { this->v = v, this->nxt = nxt; }
 } e[MAXM];
 
 void add_edge(int x, int y)
@@ -306,8 +293,6 @@ int h[MAXN], tot = 0;
 struct edge
 {
     int v, nxt;
-    edge() { v = nxt = 0; }
-    edge(int v, int nxt) { this->v = v, this->nxt = nxt; }
 } e[MAXM];
 
 void add_edge(int x, int y)
@@ -381,8 +366,6 @@ bool vis[MAXN];
 struct edge
 {
     int v, nxt;
-    edge() { v = nxt = 0; }
-    edge(int v, int nxt) { this->v = v, this->nxt = nxt; }
 } e[MAXM];
 
 void add_edge(int x, int y)
