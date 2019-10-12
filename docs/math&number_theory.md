@@ -546,3 +546,22 @@ matrix matpow(matrix x, ll y)
     return ans;
 }
 ```
+
+
+
+## 整除分块
+
+-   用于计算 $\sum\limits_{i=1}^n\lfloor\frac ni\rfloor$
+
+```cpp
+ll divsum(int n)
+{
+    ll res = 0;
+    for (int l = 1, r; l <= n; l = r + 1)
+    {
+        r = n / (n / l);
+        res += (r - l + 1) * (n / l);
+    }
+    return res;
+}
+```
