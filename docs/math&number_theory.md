@@ -291,13 +291,29 @@ ll mod_reverse(ll a, ll n)
 }
 ```
 
+### 逆元打表
+
+```cpp
+const ll mod = 998244353;
+const int N = 1000010;
+
+ll inv[N];
+
+void init(int n)
+{
+    inv[0] = inv[1] = 1;
+    for (int i = 2; i <= n; i++)
+        inv[i] = (mod - (mod / i)) * inv[mod % i] % mod;
+}
+```
 
 
-## 组合数逆元
+
+## 组合数及阶乘逆元
 
 ```cpp
 const int mod = 998244353;
-const int MAXN = 1000000;
+const int N = 1000010;
 
 ll fastpow(ll base, ll exp)
 {
@@ -314,14 +330,14 @@ ll fastpow(ll base, ll exp)
     return t % mod;
 }
 
-ll inv[MAXN + 10], f[MAXN + 10];
-void init()
+ll inv[N], f[N];
+void init(int n)
 {
     f[0] = 1;
-    for (int i = 1; i <= MAXN; i++)
+    for (int i = 1; i <= n; i++)
         f[i] = f[i - 1] * i % mod;
-    inv[MAXN] = fastpow(f[MAXN], mod - 2);
-    for (int i = MAXN - 1; i >= 0; i--)
+    inv[n] = fastpow(f[n], mod - 2);
+    for (int i = n - 1; i >= 0; i--)
         inv[i] = inv[i + 1] * (i + 1) % mod;
 }
 
