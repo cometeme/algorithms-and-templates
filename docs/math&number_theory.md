@@ -513,6 +513,7 @@ void get_mu()
 
 ```cpp
 const int N = 3;
+const ll mod = 1e9 + 7;
 
 struct matrix
 {
@@ -533,18 +534,15 @@ void init_E()
         }
 }
 
-matrix matmul(matrix x, matrix y)
+matrix operator*(matrix x, matrix y)
 {
     matrix c;
-
-    for (int i = 0; i < N; i++)
-        for (int j = 0; j < N; j++)
-            c.m[i][j] = 0;
+    memset(c.m, 0, sizeof(c.m));
 
     for (int i = 0; i < N; i++)
         for (int j = 0; j < N; j++)
             for (int k = 0; k < N; k++)
-                c.m[i][j] = (c.m[i][j] + x.m[i][k] * y.m[k][j]);
+                c.m[i][j] = (c.m[i][j] + x.m[i][k] * y.m[k][j]) % mod;
 
     return c;
 }
@@ -555,8 +553,8 @@ matrix matpow(matrix x, ll y)
     while (y)
     {
         if (y & 1LL)
-            ans = matmul(ans, x);
-        x = matmul(x, x);
+            ans = ans * x;
+        x = x * x;
         y >>= 1;
     }
     return ans;
