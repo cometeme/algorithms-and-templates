@@ -89,7 +89,6 @@ void pushdown(int x, int l, int r)
         return;
     if (l == r)
     {
-        sum[x] += lazyadd[x];
         lazyadd[x] = 0;
         return;
     }
