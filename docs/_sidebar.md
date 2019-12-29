@@ -5,6 +5,6 @@
 -   [字符串](/string.md)
 
 -   About me
-    -   [My technology blog](https://www.cometeme.tech)
-    -   [ACM solutions](https://www.cometeme.tech/acm-problem-solutions/)
+    -   [My technology blog](https://www.adelardcollins.com)
+    -   [ACM solutions](https://www.adelardcollins.com/acm-problem-solutions/)
     -   [My GitHub](https://github.com/cometeme)
